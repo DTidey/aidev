@@ -13,7 +13,7 @@ Create or update a file: `docs/specs/<short-slug>.md` using `.ai/templates/spec_
 ## Rules
 - Do NOT write implementation code.
 - Avoid design/architecture unless necessary for correctness.
-- Every acceptance criterion must be testable.
+- Every acceptance criterion must be testable and labeled `AC1`, `AC2`, ...
 - List assumptions explicitly.
 - Define edge cases and error handling.
 - If requirements are missing, make reasonable defaults AND label them as assumptions.

@@ -2,6 +2,12 @@
 
 Each feature/change should have a spec in this folder.
 
+Every spec should include:
+- Scope and non-goals
+- Acceptance criteria labeled `AC1`, `AC2`, ...
+- Edge cases and error handling
+- Test guidance mapping AC -> tests
+
 Workflow:
 1) Create spec (Spec Writer)
 2) Implement to spec (Implementer)

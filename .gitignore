@@ -1,0 +1,27 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test and coverage outputs
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build/distribution artifacts
+build/
+dist/
+*.egg-info/
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

@@ -1,6 +1,3 @@
-
-### `.ai/templates/test_plan_template.md`
-```md
 # Test Plan: <slug>
 
 ## What changed

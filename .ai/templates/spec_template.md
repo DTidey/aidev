@@ -36,3 +36,20 @@ Out of scope / non-goals:
 ### Examples
 ```python
 # Example usage
+```
+
+## Acceptance criteria
+- AC1: ...
+- AC2: ...
+- AC3: ...
+
+## Edge cases
+- ...
+
+## Test guidance
+- AC1 -> <test name(s)>
+- AC2 -> <test name(s)>
+- AC3 -> <test name(s)>
+
+## Decision log
+- <YYYY-MM-DD>: <decision and reason>

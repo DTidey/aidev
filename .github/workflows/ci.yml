@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -27,6 +29,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -r requirements-dev.txt
+
+      - name: Validate PR template and spec linkage
+        if: github.event_name == 'pull_request'
+        run: |
+          python .github/scripts/validate_pr.py
 
       - name: Lint
         run: |
