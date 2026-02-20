@@ -1,0 +1,6 @@
+-r requirements.in
+
+pytest
+ruff
+pre-commit
+pip-tools
