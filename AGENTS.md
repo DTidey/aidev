@@ -25,7 +25,9 @@ This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs
 ## PR Requirements
 - If code changes are present, include/update a spec in `docs/specs/*.md`.
 - PR body must link the spec path (`docs/specs/<slug>.md`).
-- PR body must check at least one acceptance criterion (`[x] AC1` style).
+- The linked spec must be the spec updated in the PR.
+- PR body must check every acceptance criterion defined in the linked spec.
+- If code changes are present, include/update `docs/test-plans/<slug>.md`.
 - Keep PRs small and reviewable.
 
 ## Role Handoff Format

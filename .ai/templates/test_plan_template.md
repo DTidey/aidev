@@ -1,5 +1,7 @@
 # Test Plan: <slug>
 
+Path: `docs/test-plans/<slug>.md`
+
 ## What changed
 - ...
 

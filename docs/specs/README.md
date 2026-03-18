@@ -2,6 +2,8 @@
 
 Each feature/change should have a spec in this folder.
 
+Code-changing specs should also have a matching test plan in `docs/test-plans/<slug>.md`.
+
 Every spec should include:
 - Scope and non-goals
 - Acceptance criteria labeled `AC1`, `AC2`, ...

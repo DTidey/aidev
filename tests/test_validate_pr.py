@@ -102,3 +102,52 @@ def test_checked_acs_can_be_compared_against_spec_ids(tmp_path: Path) -> None:
 """
     unknown = sorted(mod.checked_ac_ids(body) - mod.spec_ac_ids(str(spec_file)))
     assert unknown == ["AC3"]
+
+
+def test_changed_specs_ignores_specs_readme() -> None:
+    mod = _load_validate_pr_module()
+    files = [
+        "docs/specs/README.md",
+        "docs/specs/feature-a.md",
+        "docs/specs/feature-b.md",
+    ]
+    assert mod.changed_specs(files) == {
+        "docs/specs/feature-a.md",
+        "docs/specs/feature-b.md",
+    }
+
+
+def test_linked_spec_must_be_in_changed_specs() -> None:
+    files = {
+        "docs/specs/other-spec.md",
+        "docs/specs/second-spec.md",
+    }
+    assert "docs/specs/linked-spec.md" not in files
+
+
+def test_missing_acs_can_be_compared_against_spec_ids(tmp_path: Path) -> None:
+    mod = _load_validate_pr_module()
+    spec_file = tmp_path / "spec.md"
+    spec_file.write_text(
+        "\n".join(
+            [
+                "## Acceptance criteria",
+                "- AC1: first requirement",
+                "- AC2: second requirement",
+                "- AC10: tenth requirement",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    body = """
+- [x] AC1 done
+"""
+    missing = sorted(mod.spec_ac_ids(str(spec_file)) - mod.checked_ac_ids(body))
+    assert missing == ["AC10", "AC2"]
+
+
+def test_test_plan_path_matches_spec_slug() -> None:
+    mod = _load_validate_pr_module()
+    assert (
+        mod.test_plan_path_for_spec("docs/specs/linked-spec.md") == "docs/test-plans/linked-spec.md"
+    )

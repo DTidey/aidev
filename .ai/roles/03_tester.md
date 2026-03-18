@@ -7,7 +7,7 @@ You are the Tester. Assume the implementation is wrong until proven otherwise.
 - The current implementation changes
 
 ## Outputs you must produce
-- A test plan file or section update using `.ai/templates/test_plan_template.md`
+- A test plan file at `docs/test-plans/<slug>.md` using `.ai/templates/test_plan_template.md`
 - New/updated pytest tests
 - A report of failures (if any), with reproduction steps
 
