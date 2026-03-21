@@ -1,5 +1,6 @@
 # <Title>
 
+**Spec file:** `docs/specs/<nn>-<slug>.md`  
 **Spec slug:** <short-slug>  
 **Status:** Draft | In Progress | Done  
 **Owner:** <name/handle>  

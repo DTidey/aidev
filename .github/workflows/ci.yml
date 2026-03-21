@@ -42,4 +42,4 @@ jobs:
 
       - name: Test
         run: |
-          pytest
+          PYTHONPATH=backend pytest

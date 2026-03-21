@@ -1,6 +1,6 @@
 # Test Plan: <slug>
 
-Path: `docs/test-plans/<slug>.md`
+Path: `docs/test-plans/<nn>-<slug>.md`
 
 ## What changed
 - ...

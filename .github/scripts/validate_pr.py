@@ -21,9 +21,10 @@ NON_CODE_ROOT_FILES = {
     ".pre-commit-config.yaml",
 }
 NON_CODE_TEXT_EXTENSIONS = {".md", ".rst", ".txt"}
-SPEC_LINK_PATTERN = re.compile(r"docs/specs/[a-z0-9][a-z0-9-]*\.md", flags=re.IGNORECASE)
+SPEC_LINK_PATTERN = re.compile(r"docs/specs/\d{2}-[a-z0-9][a-z0-9-]*\.md", flags=re.IGNORECASE)
 CHECKED_AC_PATTERN = re.compile(r"^- \[[xX]\]\s+(AC\d+)\b", flags=re.MULTILINE)
 SPEC_AC_PATTERN = re.compile(r"^\s*-\s*(AC\d+):", flags=re.MULTILINE)
+NUMBERED_PACKET_PATTERN = re.compile(r"^\d{2}-[a-z0-9][a-z0-9-]*\.md$", flags=re.IGNORECASE)
 
 
 def run(cmd: list[str]) -> str:
@@ -92,8 +93,26 @@ def changed_specs(files: list[str]) -> set[str]:
     }
 
 
+def has_numbered_packet_name(path: str) -> bool:
+    return bool(NUMBERED_PACKET_PATTERN.match(Path(path).name))
+
+
 def test_plan_path_for_spec(spec_path: str) -> str:
     return spec_path.replace("docs/specs/", "docs/test-plans/", 1)
+
+
+def pr_draft_path_for_spec(spec_path: str) -> str:
+    return spec_path.replace("docs/specs/", ".ai/pr-description/", 1)
+
+
+def artifact_has_spec_link(path: str, spec_path: str) -> bool:
+    content = Path(path).read_text(encoding="utf-8")
+    return spec_path in content
+
+
+def artifact_checked_ac_ids(path: str) -> set[str]:
+    content = Path(path).read_text(encoding="utf-8")
+    return checked_ac_ids(content)
 
 
 def main() -> int:
@@ -121,8 +140,16 @@ def main() -> int:
         errors.append("PR body is empty. Fill in the PR template.")
     if require_spec and not touched_specs:
         errors.append("Code changes detected without a spec update/addition under docs/specs/*.md.")
+    invalid_spec_paths = sorted(
+        path for path in touched_specs if not has_numbered_packet_name(path)
+    )
+    if invalid_spec_paths:
+        errors.append(
+            "Spec files must use a two-digit prefix like docs/specs/03-my-change.md: "
+            + ", ".join(invalid_spec_paths)
+        )
     if require_spec and not has_spec_link(body):
-        errors.append("PR body must include a spec link like docs/specs/<slug>.md.")
+        errors.append("PR body must include a spec link like docs/specs/03-my-change.md.")
     if require_spec and has_spec_link(body):
         linked_spec = extract_spec_link(body)
         assert linked_spec is not None
@@ -152,11 +179,51 @@ def main() -> int:
             test_plan_path = test_plan_path_for_spec(linked_spec)
             if not Path(test_plan_path).is_file():
                 errors.append(f"Expected test plan file not found: {test_plan_path}")
+            elif not has_numbered_packet_name(test_plan_path):
+                errors.append(
+                    "Matching test plans must use a two-digit prefix like "
+                    "docs/test-plans/03-my-change.md: "
+                    f"{test_plan_path}"
+                )
             elif test_plan_path not in files:
                 errors.append(
                     "Code-changing PRs must add or update the matching test plan file: "
                     f"{test_plan_path}"
                 )
+            pr_draft_path = pr_draft_path_for_spec(linked_spec)
+            if not Path(pr_draft_path).is_file():
+                errors.append(f"Expected PR draft file not found: {pr_draft_path}")
+            elif not has_numbered_packet_name(pr_draft_path):
+                errors.append(
+                    "Matching PR drafts must use a two-digit prefix like "
+                    ".ai/pr-description/03-my-change.md: "
+                    f"{pr_draft_path}"
+                )
+            else:
+                if pr_draft_path not in files:
+                    errors.append(
+                        "Code-changing PRs must add or update the matching PR draft file: "
+                        f"{pr_draft_path}"
+                    )
+                if not artifact_has_spec_link(pr_draft_path, linked_spec):
+                    errors.append(
+                        f"PR draft must link the same spec as the PR body: {pr_draft_path}"
+                    )
+                draft_selected_acs = artifact_checked_ac_ids(pr_draft_path)
+                draft_missing_acs = sorted(valid_acs - draft_selected_acs)
+                draft_unknown_acs = sorted(draft_selected_acs - valid_acs)
+                if draft_missing_acs:
+                    draft_missing_acs_text = ", ".join(draft_missing_acs)
+                    errors.append(
+                        f"PR draft must check every acceptance criterion from {linked_spec}: "
+                        f"{draft_missing_acs_text}"
+                    )
+                if draft_unknown_acs:
+                    draft_unknown_acs_text = ", ".join(draft_unknown_acs)
+                    errors.append(
+                        f"Checked acceptance criteria not found in {linked_spec} "
+                        f"within PR draft {pr_draft_path}: {draft_unknown_acs_text}"
+                    )
 
     if errors:
         print("PR validation failed:")

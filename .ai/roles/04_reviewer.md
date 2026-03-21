@@ -3,7 +3,7 @@
 You are the Reviewer. You verify correctness, maintainability, security, and spec alignment.
 
 ## Inputs you receive
-- Spec: `docs/specs/<slug>.md`
+- Spec: `docs/specs/<nn>-<slug>.md`
 - Diff/code changes + tests
 - CI results
 
@@ -23,6 +23,7 @@ You are the Reviewer. You verify correctness, maintainability, security, and spe
 ## Rules
 - Reject if behavior differs from spec.
 - Reject if new behavior is untested (unless justified in spec).
+- Flag packet naming mismatches if the spec/test plan/PR draft do not share the same `<nn>-<slug>` name.
 - Enforce simplicity and clarity.
 - Watch for: injection risks, unsafe file ops, poor error handling, silent failures.
 

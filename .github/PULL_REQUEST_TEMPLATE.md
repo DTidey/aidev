@@ -2,8 +2,8 @@
 - What does this PR do?
 
 ## Spec
-- Link to `docs/specs/<slug>.md`
-- Matching test plan: `docs/test-plans/<slug>.md`
+- Link to `docs/specs/<nn>-<slug>.md`
+- Matching test plan: `docs/test-plans/<nn>-<slug>.md`
 
 ## Acceptance criteria
 - [ ] AC1 ...
@@ -17,6 +17,9 @@ Check every AC defined in the linked spec before merge.
 - [ ] `make test`
 - Additional commands:
   - ...
+
+## Changelog
+- [ ] Add to `CHANGELOG.md` `Unreleased` if this change should be called out before the next explicit release.
 
 ## Notes / tradeoffs
 - ...

@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Purpose
-This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs/<slug>.md` is the source of truth.
+This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs/<nn>-<slug>.md` is the source of truth.
 
 ## Workflow Order
 1. Spec Writer: create or update a spec from `.ai/templates/spec_template.md`.
@@ -14,6 +14,10 @@ This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs
 ## Non-Negotiable Rules
 - No implementation before spec.
 - No behavior beyond spec without first updating the spec.
+- Every new spec/test-plan/PR-draft change packet must use the same two-digit prefix, such as `03-my-change.md`.
+- Assign the next available prefix and never renumber old packets after they land.
+- Release versions use `MAJOR.MINOR.PATCH` formatting in `CHANGELOG.md`.
+- Do not create a new release unless the user explicitly asks for one.
 - Acceptance criteria must be labeled `AC1`, `AC2`, `AC3`, ...
 - Acceptance criteria must be testable and mapped to tests.
 - Ambiguities must be surfaced explicitly, not guessed silently.
@@ -24,10 +28,14 @@ This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs
 
 ## PR Requirements
 - If code changes are present, include/update a spec in `docs/specs/*.md`.
-- PR body must link the spec path (`docs/specs/<slug>.md`).
+- PR body must link the spec path (`docs/specs/<nn>-<slug>.md`).
 - The linked spec must be the spec updated in the PR.
 - PR body must check every acceptance criterion defined in the linked spec.
-- If code changes are present, include/update `docs/test-plans/<slug>.md`.
+- If code changes are present, include/update a PR draft in `.ai/pr-description/<nn>-<slug>.md`.
+- The PR draft must link the spec path (`docs/specs/<nn>-<slug>.md`).
+- The PR draft must check every acceptance criterion defined in the linked spec.
+- The PR draft should summarize the behavior change, validation run, and any open risks.
+- If code changes are present, include/update `docs/test-plans/<nn>-<slug>.md`.
 - Keep PRs small and reviewable.
 
 ## Role Handoff Format
@@ -47,3 +55,7 @@ Reviewer blockers must include:
 - `make lint` and `make test` pass.
 - CI is green.
 - Shipped behavior matches the current spec.
+
+## Release Notes
+- `CHANGELOG.md` tracks intentional release history separately from numbered spec packets.
+- Keep unreleased work under `## Unreleased` until an explicit release request is made.
