@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec-First Workflow"
+  short_description: "Run a spec-first repo workflow"
+  default_prompt: "Use $spec-first-workflow to work in this repo's spec-first process, defer to local workflow files, and keep the spec, tests, and companion artifacts aligned."
