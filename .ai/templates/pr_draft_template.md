@@ -11,9 +11,19 @@
 - [ ] AC2: ...
 - [ ] AC3: ...
 
+## Security Review
+- [ ] Security considerations were reviewed and updated in the linked spec
+- [ ] No meaningful security impact
+- [ ] Auth/authz behavior changed
+- [ ] Secrets or credential handling changed
+- [ ] Input validation, data exposure, file access, network access, or dependencies changed
+- Reviewer focus:
+  - ...
+
 ## Validation
 - [ ] `make lint`
 - [ ] `make test`
+- [ ] `make security`
 
 ## Changelog
 - [ ] Add to `CHANGELOG.md` under `## Unreleased` if this change should be called out before the next explicit release.

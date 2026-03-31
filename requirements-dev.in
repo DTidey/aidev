@@ -4,3 +4,5 @@ pytest
 ruff
 pre-commit
 pip-tools
+bandit
+pip-audit

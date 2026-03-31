@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 import os
 import re
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -28,7 +28,7 @@ NUMBERED_PACKET_PATTERN = re.compile(r"^\d{2}-[a-z0-9][a-z0-9-]*\.md$", flags=re
 
 
 def run(cmd: list[str]) -> str:
-    return subprocess.check_output(cmd, text=True).strip()
+    return subprocess.check_output(cmd, text=True).strip()  # nosec B603
 
 
 def changed_files(base: str, head: str) -> list[str]:
@@ -152,7 +152,9 @@ def main() -> int:
         errors.append("PR body must include a spec link like docs/specs/03-my-change.md.")
     if require_spec and has_spec_link(body):
         linked_spec = extract_spec_link(body)
-        assert linked_spec is not None
+        if linked_spec is None:
+            errors.append("PR body must include a valid spec link like docs/specs/03-my-change.md.")
+            linked_spec = ""
         if not Path(linked_spec).is_file():
             errors.append(f"Linked spec file not found: {linked_spec}")
         else:

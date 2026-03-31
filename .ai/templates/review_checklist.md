@@ -20,8 +20,14 @@
 - [ ] Naming is clear and consistent
 
 ## Security
+- [ ] Security considerations in the spec were reviewed
+- [ ] Unclear security impact was surfaced explicitly as a blocker
 - [ ] No unsafe eval/exec
+- [ ] Auth/authz changes are correct and least-privilege aware
+- [ ] Secrets are not exposed in code, logs, or config changes
 - [ ] File operations are safe (path traversal considered)
+- [ ] Network and external service changes are constrained and intentional
+- [ ] Dependency changes do not introduce obvious avoidable risk
 - [ ] External input validated/sanitized where needed
 
 ## Tooling / quality

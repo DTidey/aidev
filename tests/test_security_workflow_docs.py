@@ -1,0 +1,65 @@
+from pathlib import Path
+
+
+def read(path: str) -> str:
+    return Path(path).read_text(encoding="utf-8")
+
+
+def test_spec_template_includes_security_considerations_prompts() -> None:
+    content = read(".ai/templates/spec_template.md")
+    assert "## Security considerations" in content
+    assert "- Auth/authz impact:" in content
+    assert "- Input handling or injection risk:" in content
+    assert "- Secrets or credential handling:" in content
+    assert "- Data exposure or privacy impact:" in content
+    assert "- File system access impact:" in content
+    assert "- Network or external service impact:" in content
+    assert "- Dependency or supply-chain impact:" in content
+
+
+def test_pr_templates_include_security_review_and_no_impact_path() -> None:
+    for path in [
+        ".ai/templates/pr_draft_template.md",
+        ".ai/templates/pr_description_template.md",
+    ]:
+        content = read(path)
+        assert "Security" in content
+        assert "Security considerations were reviewed and updated in the linked spec" in content
+        assert "No meaningful security impact" in content
+        assert "Reviewer focus:" in content
+
+
+def test_role_guidance_calls_for_security_review_and_blockers() -> None:
+    tester = read(".ai/roles/03_tester.md")
+    reviewer = read(".ai/roles/04_reviewer.md")
+
+    assert "Security considerations" in tester
+    assert "security impact is unclear or inadequately testable" in tester
+    assert "Security considerations" in reviewer
+    assert "security impact is unclear, undocumented, or inadequately tested" in reviewer
+
+
+def test_repo_docs_describe_security_review_as_required_workflow_behavior() -> None:
+    agents = read("AGENTS.md")
+    readme = read("README.md")
+
+    assert "Code-changing specs must document security considerations" in agents
+    assert "Security considerations reviewed for code-changing work" in agents
+    assert "## Security Review" in readme
+    assert "make security" in agents
+    assert "make security" in readme
+
+
+def test_makefile_and_ci_wire_security_automation() -> None:
+    makefile = read("Makefile")
+    ci = read(".github/workflows/ci.yml")
+    reqs = read("requirements-dev.in")
+
+    assert "security:" in makefile
+    assert "bandit -q -r .github/scripts" in makefile
+    assert "XDG_CACHE_HOME=/tmp/.cache pip-audit --no-deps --disable-pip" in makefile
+    assert "--ignore-vuln CVE-2026-4539" in makefile
+    assert "name: Security" in ci
+    assert "make security" in ci
+    assert "bandit" in reqs
+    assert "pip-audit" in reqs

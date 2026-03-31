@@ -40,6 +40,10 @@ jobs:
           ruff check .
           ruff format --check .
 
+      - name: Security
+        run: |
+          make security
+
       - name: Test
         run: |
           PYTHONPATH=backend pytest

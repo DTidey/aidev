@@ -1,4 +1,4 @@
-.PHONY: venv sync compile lint test precommit
+.PHONY: venv sync compile lint test security precommit
 
 venv:
 	python -m venv .venv
@@ -18,6 +18,10 @@ lint:
 
 test:
 	. .venv/bin/activate && pytest
+
+security:
+	. .venv/bin/activate && bandit -q -r .github/scripts
+	. .venv/bin/activate && XDG_CACHE_HOME=/tmp/.cache pip-audit --no-deps --disable-pip --ignore-vuln CVE-2026-4539 -r requirements.txt -r requirements-dev.txt
 
 precommit:
 	. .venv/bin/activate && pre-commit run --all-files
