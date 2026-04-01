@@ -91,7 +91,9 @@ def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
 
     assert "name: CodeQL" in codeql
     assert "language: [python, actions]" in codeql
-    assert "github/codeql-action/init@v3" in codeql
+    assert "github/codeql-action/init@v4" in codeql
+    assert "github/codeql-action/autobuild@v4" in codeql
+    assert "github/codeql-action/analyze@v4" in codeql
     assert "pull_request_target:" in auto_approve
     assert "branches: [main]" in auto_approve
     assert "pull-requests: write" in auto_approve
