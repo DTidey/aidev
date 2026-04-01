@@ -57,6 +57,22 @@ def test_repo_docs_describe_security_review_as_required_workflow_behavior() -> N
     assert "make security" in readme
 
 
+def test_historical_packets_match_current_required_artifacts() -> None:
+    spec_00 = read("docs/specs/00-ai-workflow-guardrails.md")
+    draft_00 = read(".ai/pr-description/00-ai-workflow-guardrails.md")
+    draft_01 = read(".ai/pr-description/01-security-review-guardrails.md")
+    draft_04 = read(".ai/pr-description/04-dependabot-pr-validation-exception.md")
+
+    assert "**Status:** Done" in spec_00
+    assert "## Security considerations" in spec_00
+    assert "Spec: `docs/specs/00-ai-workflow-guardrails.md`" in draft_00
+    assert "## Security Review" in draft_00
+    assert "## Security Review" in draft_01
+    assert "- [x] `make lint`" in draft_04
+    assert "- [x] `make test`" in draft_04
+    assert "- [x] `make security`" in draft_04
+
+
 def test_makefile_and_ci_wire_security_automation() -> None:
     makefile = read("Makefile")
     ci = read(".github/workflows/ci.yml")

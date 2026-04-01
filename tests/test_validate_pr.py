@@ -21,6 +21,7 @@ def test_is_docs_only_allows_markdown_and_known_root_files() -> None:
         ".ai/roles/00_spec_writer.md",
         ".github/PULL_REQUEST_TEMPLATE.md",
         "README.md",
+        "CHANGELOG.md",
     ]
     assert mod.is_docs_only(files) is True
 
@@ -39,6 +40,18 @@ def test_is_docs_only_rejects_non_markdown_under_docs_and_ai() -> None:
     files = [
         "docs/generator.py",
         ".ai/templates/spec_template.yaml",
+    ]
+    assert mod.is_docs_only(files) is False
+
+
+def test_is_docs_only_rejects_dependency_and_tooling_changes() -> None:
+    mod = _load_validate_pr_module()
+    files = [
+        "pyproject.toml",
+        "requirements.in",
+        "requirements-dev.txt",
+        "Makefile",
+        ".pre-commit-config.yaml",
     ]
     assert mod.is_docs_only(files) is False
 

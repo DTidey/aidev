@@ -12,13 +12,7 @@ from pathlib import Path
 
 NON_CODE_ROOT_FILES = {
     "README.md",
-    "requirements.in",
-    "requirements-dev.in",
-    "requirements.txt",
-    "requirements-dev.txt",
-    "pyproject.toml",
-    "Makefile",
-    ".pre-commit-config.yaml",
+    "CHANGELOG.md",
 }
 NON_CODE_TEXT_EXTENSIONS = {".md", ".rst", ".txt"}
 DEPENDABOT_ALLOWED_ROOT_FILES = {

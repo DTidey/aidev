@@ -27,9 +27,9 @@
   - Confirm the new bypass remains limited to `dependabot[bot]` and dependency/workflow-only diffs, that CI now matches the Makefile's virtualenv assumptions, and that auto-approval only applies to owner-authored `codex/` branches.
 
 ## Validation
-- [ ] `make lint`
-- [ ] `make test`
-- [ ] `make security`
+- [x] `make lint`
+- [x] `make test`
+- [x] `make security`
 
 ## GitHub Checks
 - Required checks for `main`:

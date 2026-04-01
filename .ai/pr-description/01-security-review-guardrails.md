@@ -14,6 +14,15 @@
 - [x] AC3: Reviewer and tester guidance explicitly instructs those roles to examine the documented security considerations and flag blockers when the security impact is unclear or inadequately tested.
 - [x] AC4: Repository documentation describes security review as a required part of code-changing work and makes clear that deeper automated scanning is future work rather than current behavior.
 
+## Security Review
+- [x] Security considerations were reviewed and updated in the linked spec
+- [x] No meaningful security impact
+- [ ] Auth/authz behavior changed
+- [ ] Secrets or credential handling changed
+- [x] Input validation, data exposure, file access, network access, or dependencies changed
+- Reviewer focus:
+  - Confirm the prompts are concrete enough that future packets can document low-risk and unclear-risk changes consistently.
+
 ## Validation
 - [x] `make lint`
 - [x] `make test`

@@ -1,7 +1,7 @@
 # AI Workflow Guardrails
 
 **Spec slug:** ai-workflow-guardrails
-**Status:** In Progress
+**Status:** Done
 **Owner:** Codex
 **Date:** 2026-03-18
 
@@ -67,6 +67,16 @@ PR body:
 - AC3: For code-changing PRs, a test plan file must exist at `docs/test-plans/<nn>-<slug>.md` and that file must be added or updated in the PR.
 - AC4: For code-changing PRs, a PR draft file must exist at `.ai/pr-description/<nn>-<slug>.md`, must be added or updated in the PR, must link the same spec path, and must check every acceptance criterion defined in that spec without unknown AC IDs.
 
+## Security considerations
+- Auth/authz impact: None; this packet hardens repository workflow validation rather than application access control.
+- Input handling or injection risk: Low; validator behavior is based on repository-controlled text parsing and file paths.
+- Secrets or credential handling: None.
+- Data exposure or privacy impact: None.
+- File system access impact: Read-only access to repository files and Git metadata during validation.
+- Network or external service impact: None.
+- Dependency or supply-chain impact: Indirectly improves change control by requiring matching packet artifacts for code-changing PRs.
+- Security notes for reviewers/testers: Confirm validator failures are explicit and that docs-only changes remain exempt.
+
 ## Edge cases
 - Docs-only PRs should not require a spec, test plan, or PR draft update.
 - Spec files with multi-digit AC IDs such as `AC10` should validate correctly.
@@ -81,3 +91,4 @@ PR body:
 ## Decision log
 - 2026-03-18: Standardized test plan location as `docs/test-plans/<nn>-<slug>.md` to make AI outputs discoverable and machine-checkable.
 - 2026-03-21: Standardized PR draft location as `.ai/pr-description/<nn>-<slug>.md` and decided CI should validate its spec link and AC checklist just like the PR body.
+- 2026-04-01: Marked the packet done and backfilled its security considerations after the repository adopted explicit security-review requirements.
