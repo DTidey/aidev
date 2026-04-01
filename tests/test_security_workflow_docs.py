@@ -68,8 +68,14 @@ def test_makefile_and_ci_wire_security_automation() -> None:
     assert "bandit -q -r .github/scripts" in makefile
     assert "XDG_CACHE_HOME=/tmp/.cache pip-audit --no-deps --disable-pip" in makefile
     assert "--ignore-vuln CVE-2026-4539" in makefile
+    assert "name: Create virtualenv" in ci
+    assert "make venv" in ci
+    assert "make compile" in ci
+    assert "make sync" in ci
+    assert "make lint" in ci
     assert "name: Security" in ci
     assert "make security" in ci
+    assert "make test" in ci
     assert "bandit" in reqs
     assert "pip-audit" in reqs
 
