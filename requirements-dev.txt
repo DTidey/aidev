@@ -99,7 +99,7 @@ rich==14.3.3
     # via
     #   bandit
     #   pip-audit
-ruff==0.15.2
+ruff==0.15.8
     # via -r requirements-dev.in
 sortedcontainers==2.4.0
     # via cyclonedx-python-lib
