@@ -83,6 +83,7 @@ def test_makefile_and_ci_wire_security_automation() -> None:
 def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
     codeql = read(".github/workflows/codeql.yml")
     auto_approve = read(".github/workflows/auto-approve-own-prs.yml")
+    auto_dependabot = read(".github/workflows/auto-manage-dependabot-prs.yml")
     dependabot = read(".github/dependabot.yml")
     codeowners = read(".github/CODEOWNERS")
     pr_template = read(".github/PULL_REQUEST_TEMPLATE.md")
@@ -100,6 +101,21 @@ def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
     assert "github.event.pull_request.user.login == github.repository_owner" in auto_approve
     assert "startsWith(github.event.pull_request.head.ref, 'codex/')" in auto_approve
     assert 'gh pr review "${{ github.event.pull_request.html_url }}" --approve' in auto_approve
+    assert "name: Auto-manage Dependabot PRs" in auto_dependabot
+    assert "pull_request_target:" in auto_dependabot
+    assert "types: [opened, reopened, synchronize, ready_for_review]" in auto_dependabot
+    assert "branches: [main]" in auto_dependabot
+    assert "contents: write" in auto_dependabot
+    assert "pull-requests: write" in auto_dependabot
+    assert "github.event.pull_request.user.login == 'dependabot[bot]'" in auto_dependabot
+    assert "startsWith(github.event.pull_request.head.ref, 'dependabot/')" in auto_dependabot
+    assert "uses: actions/github-script@v7" in auto_dependabot
+    assert '"requirements.txt"' in auto_dependabot
+    assert '".github/workflows/"' in auto_dependabot
+    assert 'gh pr review "${{ github.event.pull_request.html_url }}" --approve' in auto_dependabot
+    assert (
+        'gh pr merge "${{ github.event.pull_request.html_url }}" --auto --squash' in auto_dependabot
+    )
     assert 'package-ecosystem: "pip"' in dependabot
     assert 'package-ecosystem: "github-actions"' in dependabot
     assert "@DTidey" in codeowners
