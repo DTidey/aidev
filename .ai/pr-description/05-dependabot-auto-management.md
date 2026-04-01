@@ -24,9 +24,9 @@
   - Confirm the workflow cannot auto-manage PRs outside the intended Dependabot dependency/workflow-update path.
 
 ## Validation
-- [ ] `make lint`
-- [ ] `make test`
-- [ ] `make security`
+- [x] `make lint`
+- [x] `make test`
+- [x] `make security`
 
 ## GitHub Checks
 - Required checks for `main`:
