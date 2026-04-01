@@ -117,6 +117,28 @@ def test_changed_specs_ignores_specs_readme() -> None:
     }
 
 
+def test_is_dependabot_dependency_only_allows_dependency_files() -> None:
+    mod = _load_validate_pr_module()
+    files = [
+        "pyproject.toml",
+        "requirements.in",
+        "requirements.txt",
+        "requirements-dev.in",
+        "requirements-dev.txt",
+        ".github/workflows/ci.yml",
+    ]
+    assert mod.is_dependabot_dependency_only(files) is True
+
+
+def test_is_dependabot_dependency_only_rejects_regular_source_changes() -> None:
+    mod = _load_validate_pr_module()
+    files = [
+        "pyproject.toml",
+        "backend/app/main.py",
+    ]
+    assert mod.is_dependabot_dependency_only(files) is False
+
+
 def test_linked_spec_must_be_in_changed_specs() -> None:
     files = {
         "docs/specs/01-other-spec.md",
