@@ -40,6 +40,17 @@ make security
 - Automated validation should run through `make security` for repositories that adopt the default Python security tooling.
 - Lint and tests must pass.
 
+## GitHub Enforcement
+- Protect `main` in GitHub branch protection or a repository ruleset.
+- Require a pull request before merging into `main`.
+- Require status checks before merging and select these exact checks:
+  - `CI / test`
+  - `CodeQL / analyze`
+- Dismiss stale approvals when new commits are pushed.
+- Block force pushes and branch deletion on `main`.
+- Keep `CODEOWNERS` enabled so review ownership stays explicit.
+- Let Dependabot manage weekly updates for `pip` and GitHub Actions dependencies.
+
 ## Security Review
 - Code-changing specs should include a `Security considerations` section so authors can call out auth/authz, input handling, secrets, data exposure, file access, network access, and dependency impact.
 - PR materials should summarize the security review disposition so reviewers know whether there is no meaningful security impact or a sensitive area that needs extra scrutiny.

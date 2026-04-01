@@ -41,6 +41,17 @@ This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs
 - If code changes are present, include/update `docs/test-plans/<nn>-<slug>.md`.
 - Keep PRs small and reviewable.
 
+## GitHub Enforcement
+- Protect `main` with branch protection or a repository ruleset.
+- Require pull requests before merge.
+- Require these exact status checks before merge:
+  - `CI / test`
+  - `CodeQL / analyze`
+- Dismiss stale approvals when new commits are pushed.
+- Block force pushes and branch deletion on `main`.
+- Keep `.github/CODEOWNERS` current so review ownership is explicit.
+- Keep Dependabot enabled for `pip` and GitHub Actions updates.
+
 ## Role Handoff Format
 When blocked or unclear, use:
 - `Blocked on: <question>`

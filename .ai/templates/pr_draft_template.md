@@ -25,6 +25,11 @@
 - [ ] `make test`
 - [ ] `make security`
 
+## GitHub Checks
+- Required checks for `main`:
+  - `CI / test`
+  - `CodeQL / analyze`
+
 ## Changelog
 - [ ] Add to `CHANGELOG.md` under `## Unreleased` if this change should be called out before the next explicit release.
 

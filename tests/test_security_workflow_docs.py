@@ -19,6 +19,7 @@ def test_spec_template_includes_security_considerations_prompts() -> None:
 
 def test_pr_templates_include_security_review_and_no_impact_path() -> None:
     for path in [
+        ".github/PULL_REQUEST_TEMPLATE.md",
         ".ai/templates/pr_draft_template.md",
         ".ai/templates/pr_description_template.md",
     ]:
@@ -46,6 +47,12 @@ def test_repo_docs_describe_security_review_as_required_workflow_behavior() -> N
     assert "Code-changing specs must document security considerations" in agents
     assert "Security considerations reviewed for code-changing work" in agents
     assert "## Security Review" in readme
+    assert "## GitHub Enforcement" in agents
+    assert "## GitHub Enforcement" in readme
+    assert "CI / test" in agents
+    assert "CodeQL / analyze" in agents
+    assert "CI / test" in readme
+    assert "CodeQL / analyze" in readme
     assert "make security" in agents
     assert "make security" in readme
 
@@ -55,6 +62,8 @@ def test_makefile_and_ci_wire_security_automation() -> None:
     ci = read(".github/workflows/ci.yml")
     reqs = read("requirements-dev.in")
 
+    assert "PYTHON ?= python3" in makefile
+    assert "$(PYTHON) -m venv .venv" in makefile
     assert "security:" in makefile
     assert "bandit -q -r .github/scripts" in makefile
     assert "XDG_CACHE_HOME=/tmp/.cache pip-audit --no-deps --disable-pip" in makefile
@@ -63,3 +72,24 @@ def test_makefile_and_ci_wire_security_automation() -> None:
     assert "make security" in ci
     assert "bandit" in reqs
     assert "pip-audit" in reqs
+
+
+def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
+    codeql = read(".github/workflows/codeql.yml")
+    dependabot = read(".github/dependabot.yml")
+    codeowners = read(".github/CODEOWNERS")
+    pr_template = read(".github/PULL_REQUEST_TEMPLATE.md")
+    pr_draft_template = read(".ai/templates/pr_draft_template.md")
+    pr_description_template = read(".ai/templates/pr_description_template.md")
+
+    assert "name: CodeQL" in codeql
+    assert "language: [python, actions]" in codeql
+    assert "github/codeql-action/init@v3" in codeql
+    assert 'package-ecosystem: "pip"' in dependabot
+    assert 'package-ecosystem: "github-actions"' in dependabot
+    assert "@DTidey" in codeowners
+    assert "make security" in pr_template
+    assert "CI / test" in pr_draft_template
+    assert "CodeQL / analyze" in pr_draft_template
+    assert "CI / test" in pr_description_template
+    assert "CodeQL / analyze" in pr_description_template

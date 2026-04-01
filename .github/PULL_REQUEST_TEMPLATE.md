@@ -12,9 +12,19 @@
 
 Check every AC defined in the linked spec before merge.
 
+## Security review
+- [ ] Security considerations were reviewed and updated in the linked spec
+- [ ] No meaningful security impact
+- [ ] Auth/authz behavior changed
+- [ ] Secrets or credential handling changed
+- [ ] Input validation, data exposure, file access, network access, or dependencies changed
+- Reviewer focus:
+  - ...
+
 ## Testing
 - [ ] `make lint`
 - [ ] `make test`
+- [ ] `make security`
 - Additional commands:
   - ...
 
