@@ -21,6 +21,13 @@ NON_CODE_ROOT_FILES = {
     ".pre-commit-config.yaml",
 }
 NON_CODE_TEXT_EXTENSIONS = {".md", ".rst", ".txt"}
+DEPENDABOT_ALLOWED_ROOT_FILES = {
+    "pyproject.toml",
+    "requirements.in",
+    "requirements.txt",
+    "requirements-dev.in",
+    "requirements-dev.txt",
+}
 SPEC_LINK_PATTERN = re.compile(r"docs/specs/\d{2}-[a-z0-9][a-z0-9-]*\.md", flags=re.IGNORECASE)
 CHECKED_AC_PATTERN = re.compile(r"^- \[[xX]\]\s+(AC\d+)\b", flags=re.MULTILINE)
 SPEC_AC_PATTERN = re.compile(r"^\s*-\s*(AC\d+):", flags=re.MULTILINE)
@@ -72,6 +79,26 @@ def extract_spec_link(body: str) -> str | None:
 
 def has_checked_ac(body: str) -> bool:
     return bool(CHECKED_AC_PATTERN.search(body))
+
+
+def is_dependabot_allowed_path(path: str) -> bool:
+    if path in DEPENDABOT_ALLOWED_ROOT_FILES:
+        return True
+
+    if path.startswith(".github/workflows/") and path.endswith((".yml", ".yaml")):
+        return True
+
+    return False
+
+
+def is_dependabot_dependency_only(files: list[str]) -> bool:
+    if not files:
+        return False
+    for path in files:
+        if is_dependabot_allowed_path(path):
+            continue
+        return False
+    return True
 
 
 def checked_ac_ids(body: str) -> set[str]:
@@ -130,8 +157,13 @@ def main() -> int:
     body = pull_request.get("body") or ""
     base_sha = pull_request["base"]["sha"]
     head_sha = pull_request["head"]["sha"]
+    user = pull_request.get("user") or {}
 
     files = changed_files(base_sha, head_sha)
+    if user.get("login") == "dependabot[bot]" and is_dependabot_dependency_only(files):
+        print("Dependabot dependency-only PR detected; skipping spec validation.")
+        return 0
+
     require_spec = not is_docs_only(files)
     touched_specs = changed_specs(files)
 
