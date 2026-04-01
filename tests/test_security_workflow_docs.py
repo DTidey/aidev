@@ -82,6 +82,7 @@ def test_makefile_and_ci_wire_security_automation() -> None:
 
 def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
     codeql = read(".github/workflows/codeql.yml")
+    auto_approve = read(".github/workflows/auto-approve-own-prs.yml")
     dependabot = read(".github/dependabot.yml")
     codeowners = read(".github/CODEOWNERS")
     pr_template = read(".github/PULL_REQUEST_TEMPLATE.md")
@@ -91,6 +92,12 @@ def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
     assert "name: CodeQL" in codeql
     assert "language: [python, actions]" in codeql
     assert "github/codeql-action/init@v3" in codeql
+    assert "pull_request_target:" in auto_approve
+    assert "branches: [main]" in auto_approve
+    assert "pull-requests: write" in auto_approve
+    assert "github.event.pull_request.user.login == github.repository_owner" in auto_approve
+    assert "startsWith(github.event.pull_request.head.ref, 'codex/')" in auto_approve
+    assert 'gh pr review "${{ github.event.pull_request.html_url }}" --approve' in auto_approve
     assert 'package-ecosystem: "pip"' in dependabot
     assert 'package-ecosystem: "github-actions"' in dependabot
     assert "@DTidey" in codeowners
