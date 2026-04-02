@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Check changed files
         id: filter
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const allowedRootFiles = new Set([
