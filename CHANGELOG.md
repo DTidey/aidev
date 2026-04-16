@@ -11,4 +11,5 @@ Release policy:
 ## Unreleased
 
 ### Added
+- `CLAUDE.md`: repository-root guidance file auto-loaded by Claude Code, documenting commands, numbered packet system, five-role workflow, and CI enforcement rules (packet `07-add-claude-documentation`).
 
