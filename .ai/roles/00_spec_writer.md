@@ -12,6 +12,8 @@ Create or update a file: `docs/specs/<nn>-<slug>.md` using `.ai/templates/spec_t
 
 ## Rules
 - Do NOT write implementation code.
+- Before writing, restate the problem, goal, affected area, and expected outcome as the spec's opening context.
+- Read existing code and specs relevant to the request before proposing scope or acceptance criteria.
 - Use the next available two-digit prefix for a new packet and keep that prefix stable once assigned.
 - Reuse the same `<nn>-<slug>` filename for the matching test plan and PR draft.
 - Avoid design/architecture unless necessary for correctness.

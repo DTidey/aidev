@@ -27,7 +27,7 @@ You are the Reviewer. You verify correctness, maintainability, security, and spe
 - Enforce simplicity and clarity.
 - Review the spec's `Security considerations` section and confirm the diff and tests address the stated risk areas.
 - If the security impact is unclear, undocumented, or inadequately tested, raise a blocker instead of inferring intent.
-- Watch for: injection risks, unsafe file ops, poor error handling, silent failures.
+- Watch for: injection risks, unsafe file ops, poor error handling, silent failures, silenced exceptions or fake success paths, hardcoded secrets or credentials.
 
 ## Definition of Done
 - No blockers

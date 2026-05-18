@@ -36,7 +36,7 @@ Every change is tracked as a numbered "packet" with a shared two-digit prefix, e
 | Test plan | `docs/test-plans/07-my-change.md` |
 | PR draft | `.ai/pr-description/07-my-change.md` |
 
-The prefix is assigned sequentially and never renumbered. All three artifacts for a packet must share the exact `<nn>-<slug>` filename stem. Use the next available prefix (check existing files in `docs/specs/` — currently the highest is `06`).
+The prefix is assigned sequentially and never renumbered. All three artifacts for a packet must share the exact `<nn>-<slug>` filename stem. Use the next available prefix (check existing files in `docs/specs/` to find the current highest).
 
 ### Five-role workflow
 
@@ -93,3 +93,6 @@ Why this blocks merge: <one sentence>
 - Pre-commit hooks auto-fix with `ruff check --fix` and `ruff format` on every commit.
 - Dependencies managed via `pip-tools`: edit `requirements.in` / `requirements-dev.in`, then `make compile && make sync`.
 - Versions in `CHANGELOG.md` use `MAJOR.MINOR.PATCH`; accumulate under `## Unreleased` until a release is explicitly requested.
+- Functions ≤ 50 lines, nesting ≤ 4 levels; split by feature/domain when a file mixes concerns.
+- Record non-obvious decision reasoning in `log/changelog-YYYY-MM-DD.md`.
+- Never use emojis.

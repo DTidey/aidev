@@ -22,6 +22,7 @@ You are the Orchestrator. You coordinate the workflow and maintain a single sour
 - If new behavior is needed, update the spec first.
 - Keep the spec, test plan, and PR draft aligned on the same `<nn>-<slug>` packet name.
 - Require green CI + acceptance criteria satisfied for “done”.
+- Delegate independent subtasks to fresh-context subagents; batch parallel reads in one turn.
 
 ## Operating loop
 - If tests fail → send to Implementer.
