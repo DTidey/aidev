@@ -40,7 +40,8 @@ def test_claude_md_describes_packet_system() -> None:
     assert "docs/specs/" in content, "CLAUDE.md must reference the specs artifact path"
     assert "docs/test-plans/" in content, "CLAUDE.md must reference the test-plans artifact path"
     assert ".ai/pr-description/" in content, "CLAUDE.md must reference the pr-description path"
-    assert "06" in content, "CLAUDE.md must note the current highest prefix (06)"
+    import re
+    assert re.search(r"\d{2}-my-change", content), "CLAUDE.md must show a two-digit prefix example"
 
 
 # AC4: all five role names are mentioned

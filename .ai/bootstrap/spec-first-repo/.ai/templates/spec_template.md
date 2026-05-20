@@ -35,7 +35,7 @@ Out of scope / non-goals:
   - What messages?
 
 ### Examples
-```python
+```
 # Example usage
 ```
 
@@ -43,6 +43,16 @@ Out of scope / non-goals:
 - AC1: ...
 - AC2: ...
 - AC3: ...
+
+## Security considerations
+- Auth/authz impact:
+- Input handling or injection risk:
+- Secrets or credential handling:
+- Data exposure or privacy impact:
+- File system access impact:
+- Network or external service impact:
+- Dependency or supply-chain impact:
+- Security notes for reviewers/testers:
 
 ## Edge cases
 - ...
