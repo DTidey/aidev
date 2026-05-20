@@ -125,7 +125,7 @@ def test_github_guardrails_files_exist_and_match_documented_checks() -> None:
     assert "pull-requests: write" in auto_dependabot
     assert "github.event.pull_request.user.login == 'dependabot[bot]'" in auto_dependabot
     assert "startsWith(github.event.pull_request.head.ref, 'dependabot/')" in auto_dependabot
-    assert "uses: actions/github-script@v7" in auto_dependabot
+    assert "uses: actions/github-script@v9" in auto_dependabot
     assert '"requirements.txt"' in auto_dependabot
     assert '".github/workflows/"' in auto_dependabot
     assert 'gh pr review "${{ github.event.pull_request.html_url }}" --approve' in auto_dependabot

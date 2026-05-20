@@ -1,0 +1,109 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
+
+## Commands
+
+```bash
+# One-time setup
+<setup command>
+
+# Daily workflow
+<lint command>      # lint
+<test command>      # run tests
+<security command>  # security scan (remove if not applicable)
+```
+
+Run a single test:
+```bash
+<single test command>
+```
+
+## Architecture
+
+<!-- Replace this section with a description of your project's purpose and structure. -->
+
+This repository uses a **spec-first, multi-agent workflow**. It contains no application code — its
+purpose is to [describe your project here].
+
+### Numbered packet system
+
+Every change is tracked as a numbered "packet" with a shared two-digit prefix, e.g. `03`:
+
+| Artifact | Path |
+|---|---|
+| Spec | `docs/specs/03-my-change.md` |
+| Test plan | `docs/test-plans/03-my-change.md` |
+| PR draft | `.ai/pr-description/03-my-change.md` |
+
+The prefix is assigned sequentially and never renumbered. All three artifacts for a packet must
+share the exact `<nn>-<slug>` filename stem. Use the next available prefix (check existing files
+in `docs/specs/` to find the current highest).
+
+### Five-role workflow
+
+Roles are defined in `.ai/roles/` and must be executed in order:
+
+1. **Spec Writer** (`00_spec_writer.md`) — writes `docs/specs/<nn>-<slug>.md` from
+   `.ai/templates/spec_template.md`. No implementation code.
+2. **Orchestrator** (`01_orchestrator.md`) — breaks the spec into a task checklist and commit
+   plan. Approves merge only when CI is green and spec matches shipped behavior.
+3. **Implementer** (`02_implementer.md`) — writes minimal code strictly against acceptance
+   criteria. Stops and reports `Blocked on:` if the spec is ambiguous.
+4. **Tester** (`03_tester.md`) — writes `docs/test-plans/<nn>-<slug>.md` and tests mapped to
+   ACs; adds at least 3 adversarial cases beyond the spec edge cases.
+5. **Reviewer** (`04_reviewer.md`) — categorises findings as Blockers / Important / Suggestions;
+   blockers must cite `File: <path:line>`, `AC: <id>`, and a one-sentence reason.
+
+### Acceptance criteria conventions
+
+- Labelled `AC1`, `AC2`, `AC3`, ... in the spec.
+- Every AC must be testable and mapped to a named test in the test plan.
+- PR body and PR draft must check every AC with `- [x] AC1 ...` syntax — this is validated
+  automatically.
+
+### CI enforcement
+
+`.github/scripts/validate_pr.py` runs on every PR and enforces:
+- PR body is non-empty and links a spec file matching `docs/specs/\d{2}-[a-z0-9][a-z0-9-]*.md`.
+- The linked spec was actually modified in the PR (for code-changing PRs).
+- Every AC in the linked spec is checked in the PR body.
+- Matching test plan and PR draft files exist, were updated, and check the same ACs.
+- Exception: Dependabot PRs that only touch dependency files skip spec validation.
+
+### Blocking and handoff format
+
+When blocked at any role, use exactly:
+```
+Blocked on: <question>
+Affected AC: <AC id(s) or "missing">
+Proposed default: <optional>
+```
+
+Reviewer blockers additionally require:
+```
+File: <path:line>
+AC: <AC id or "N/A">
+Why this blocks merge: <one sentence>
+```
+
+### Security
+
+- Every spec that changes code must include a `Security considerations` section (template fields:
+  auth/authz, input handling, secrets, data exposure, file access, network access, dependency
+  impact).
+- Run `<security command>` to check for vulnerabilities (remove if not applicable).
+
+### Tooling
+
+<!-- Replace with your project's actual tooling details. -->
+- Language: <language and version>
+- Linter/formatter: <tool and configuration>
+- Line length: <value>
+- Functions <= 50 lines, nesting <= 4 levels; split by feature/domain when a file mixes concerns.
+- Dependencies managed via: <tool>.
+- Versions in `CHANGELOG.md` use `MAJOR.MINOR.PATCH`; accumulate under `## Unreleased` until a
+  release is explicitly requested.
+- Record non-obvious decision reasoning in `log/changelog-YYYY-MM-DD.md`.
+- Never use emojis.

@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # Update to match your project's package ecosystems.
+  # Common values: pip, npm, cargo, gomod, gradle, maven, nuget, composer
+  # Remove ecosystems that do not apply.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    open-pull-requests-limit: 10

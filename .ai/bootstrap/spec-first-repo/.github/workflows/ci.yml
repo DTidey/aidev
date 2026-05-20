@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # validate_pr.py uses only the Python standard library.
+      # This step is required even for non-Python projects.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate PR template and spec linkage
+        if: github.event_name == 'pull_request'
+        run: |
+          python .github/scripts/validate_pr.py
+
+      # ----------------------------------------------------------------
+      # Replace the steps below with your project's language setup,
+      # dependency installation, lint, security, and test commands.
+      # ----------------------------------------------------------------
+
+      # Example: Node.js
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "20"
+      # - run: npm ci
+      # - run: npm run lint
+      # - run: npm test
+
+      # Example: Python
+      # - run: make venv && make sync
+      # - run: make lint
+      # - run: make security
+      # - run: make test
+
+      # Example: Rust
+      # - run: cargo clippy -- -D warnings
+      # - run: cargo test
+
+      - name: Build / Lint
+        run: |
+          echo "Replace this step with your lint command"
+
+      - name: Test
+        run: |
+          echo "Replace this step with your test command"

@@ -10,6 +10,8 @@
 - [ ] AC2 ...
 - [ ] AC3 ...
 
+Check every AC defined in the linked spec before merge.
+
 ## Security review
 - [ ] Security considerations were reviewed and updated in the linked spec
 - [ ] No meaningful security impact
@@ -25,11 +27,6 @@
 - [ ] `<security command>`
 - Additional commands:
   - ...
-
-## GitHub checks
-- Required checks for `main`:
-  - `<CI test job name>`
-  - `<CodeQL job name>` (remove if not applicable)
 
 ## Changelog
 - [ ] Add to `CHANGELOG.md` `Unreleased` if this change should be called out before the next
