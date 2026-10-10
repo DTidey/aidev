@@ -25,9 +25,8 @@ cp -r .ai/bootstrap/spec-first-repo/. /path/to/your-new-repo/
 This creates the following structure in your new repo:
 
 ```
-AGENTS.md                        ← workflow rules (edit to add your commands)
+AGENTS.md                        ← workflow rules and coding principles (edit to add your commands)
 CLAUDE.md                        ← Claude Code guidance (edit to describe your project)
-10Rules.md                       ← coding principles for all agents
 CHANGELOG.md                     ← release history (starts empty under ## Unreleased)
 .ai/
   templates/                     ← spec, test-plan, PR draft, review templates
@@ -154,9 +153,8 @@ the same ACs as the PR body.
 
 | File / Directory | Purpose |
 |---|---|
-| `AGENTS.md` | Workflow rules and non-negotiable constraints for AI agents |
+| `AGENTS.md` | Workflow rules, coding principles, and non-negotiable constraints for AI agents |
 | `CLAUDE.md` | Per-session project context for Claude Code |
-| `10Rules.md` | Ten coding principles enforced across all roles |
 | `.ai/templates/spec_template.md` | Template for writing specs |
 | `.ai/templates/test_plan_template.md` | Template for writing test plans |
 | `.ai/templates/pr_draft_template.md` | Template for PR draft artifacts |

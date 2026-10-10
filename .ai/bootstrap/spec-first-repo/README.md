@@ -11,9 +11,8 @@ See `../GETTING_STARTED.md` for step-by-step setup instructions.
 
 | File | Purpose |
 |---|---|
-| `AGENTS.md` | Workflow rules and non-negotiable constraints; customize command placeholders |
+| `AGENTS.md` | Workflow rules, coding principles, and non-negotiable constraints; customize command placeholders |
 | `CLAUDE.md` | Per-session project context for Claude Code; fill in commands and architecture |
-| `10Rules.md` | Ten coding principles for all agents; copy unchanged |
 | `CHANGELOG.md` | Release history starter; add your project name |
 
 ### AI workflow files

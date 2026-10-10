@@ -3,6 +3,13 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this
 repository.
 
+## Project rules
+
+The repository-wide agent rules are imported below so they load in every session. They take
+precedence over general defaults, including attribution formatting: never use emojis.
+
+@AGENTS.md
+
 ## Commands
 
 ```bash
