@@ -11,7 +11,7 @@ compile:
 	. .venv/bin/activate && pip-compile requirements-dev.in -o requirements-dev.txt
 
 sync:
-	. .venv/bin/activate && $(PYTHON) -m pip install -U pip setuptools wheel
+	. .venv/bin/activate && $(PYTHON) -m pip install -U pip setuptools wheel pip-tools
 	. .venv/bin/activate && pip-sync requirements.txt requirements-dev.txt
 
 lint:
@@ -23,7 +23,7 @@ test:
 
 security:
 	. .venv/bin/activate && bandit -q -r .github/scripts
-	. .venv/bin/activate && XDG_CACHE_HOME=/tmp/.cache pip-audit --no-deps --disable-pip --ignore-vuln CVE-2026-4539 -r requirements.txt -r requirements-dev.txt
+	. .venv/bin/activate && XDG_CACHE_HOME=/tmp/.cache pip-audit --no-deps --disable-pip -r requirements.txt -r requirements-dev.txt
 
 precommit:
 	. .venv/bin/activate && pre-commit run --all-files

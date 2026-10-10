@@ -85,7 +85,6 @@ Why this blocks merge: <one sentence>
 
 - Every spec that changes code must include a `Security considerations` section (template fields: auth/authz, input handling, secrets, data exposure, file access, network access, dependency impact).
 - `make security` runs Bandit against `.github/scripts/` and pip-audit against both requirements files.
-- `CVE-2026-4539` (pygments) is intentionally ignored in pip-audit until an upstream fix is available — revisit when upstream guidance changes.
 
 ### Tooling
 

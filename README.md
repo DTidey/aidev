@@ -55,5 +55,4 @@ make security
 - Code-changing specs should include a `Security considerations` section so authors can call out auth/authz, input handling, secrets, data exposure, file access, network access, and dependency impact.
 - PR materials should summarize the security review disposition so reviewers know whether there is no meaningful security impact or a sensitive area that needs extra scrutiny.
 - This repository currently uses `make security` as the default automation entry point, backed by Bandit and pip-audit.
-- The default `pip-audit` invocation currently ignores `CVE-2026-4539` for `pygments` because no fixed version was available when this workflow was added; revisit that exception when upstream guidance changes.
 - Deeper AppSec automation can still be layered on later for secret scanning, broader SAST, or language-specific checks.
