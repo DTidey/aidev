@@ -10,6 +10,9 @@ Release policy:
 
 ## Unreleased
 
+### Security
+- Raised msgpack, pygments, urllib3 and virtualenv to fixed versions and removed the temporary `CVE-2026-4539` pip-audit ignore; `make sync` now upgrades pip-tools alongside pip (packet `10-dependency-security-bumps`).
+
 ### Added
 - `CLAUDE.md`: repository-root guidance file auto-loaded by Claude Code, documenting commands, numbered packet system, five-role workflow, and CI enforcement rules (packet `07-add-claude-documentation`).
 
