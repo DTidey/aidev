@@ -10,7 +10,7 @@
   confirmed root/bootstrap differences are the same 21 placeholder lines before and after.
 - **Sync test added.** The bootstrap copy had already drifted in form. The test fails if any
   non-placeholder rule in the root is missing from the bootstrap.
-- **`log/` created**, because `AGENTS.md` requires decision logs and aidev had none yet.
+
 # 2026-10-10: Dependency security bumps (packet 10)
 
 - **The CVE-2026-4539 ignore was removed, not renewed.** Packet 02 added it because pygments had

@@ -33,8 +33,7 @@
 
 - `ruff check` and `ruff format --check` (ruff 0.16.10, as pinned): pass
 - `make test`: 47 passed
-- `make security`: fails, as it already does on `main`. virtualenv 20.38.0 has advisories
-  PYSEC-2026-4011 to 4014. Not touched here; fixed in a separate dependency packet.
+- `make security`: pass (after rebasing onto packet 10, which fixed the vulnerable pins)
 - Drift check: removing a rule from the bootstrap copy makes the new tests fail
 
-Open risks: CI's Security step fails until the virtualenv bump lands.
+Open risks: none.
