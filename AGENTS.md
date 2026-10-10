@@ -21,10 +21,15 @@ This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs
 - Acceptance criteria must be labeled `AC1`, `AC2`, `AC3`, ...
 - Acceptance criteria must be testable and mapped to tests.
 - Understand first: restate the problem, goal, affected area, and expected outcome before writing code or a spec. Do not assume silently.
-- Surface uncertainty with options: if requirements are unclear, ask; present two or three reasonable approaches and recommend the simplest sustainable one.
+- Surface uncertainty with options: if requirements are unclear, ask; present two or three reasonable approaches and recommend the simplest sustainable one. If the request is risky, say so.
 - Ambiguities must be surfaced explicitly, not guessed silently.
-- Fix root causes: never hide errors, silence failures, add fake success paths, or patch symptoms.
+- Fix root causes: never hide errors, silence failures, add fake success paths, or patch symptoms. Find why the problem happens and fix that.
+- For domain-specific code, do not guess. Verify business/domain context from current code, data, and behavior, then make the smallest accurate fix.
+- Keep changes surgical: touch only what the task requires, match existing style, and do not refactor, rename, reformat, or clean unrelated code.
+- Test before trusting: for bugs, reproduce with a failing test first; for features, define expected behavior with tests. Follow: test fails -> minimal fix -> test passes.
+- Verify before claiming done: run relevant tests, lint, type checks, build, and integration checks. Report exactly what was verified; do not claim success without evidence.
 - Code-changing specs must document security considerations or explicitly state no meaningful security impact.
+- Protect the system: consider side effects on data, APIs, permissions, migrations, caching, concurrency, security, and backward compatibility.
 - Never hardcode secrets. Confirm with the user before running any destructive deletion command.
 - Never use emojis.
 - Use current documentation for external libraries and APIs; do not guess syntax or behavior.
@@ -32,16 +37,19 @@ This repository uses a spec-first, multi-agent workflow. The spec in `docs/specs
 
 ## Coding Standards
 - One file = one purpose; one function = one job.
-- Functions ≤ 50 lines, nesting ≤ 4 levels. Split by feature/domain when a file mixes concerns or grows unwieldy.
-- Read the relevant code before proposing or making changes.
+- Functions <= 50 lines, nesting <= 4 levels. Split by feature/domain, not by type, when a file mixes concerns or grows unwieldy. Cohesion beats line count.
+- Read the relevant code before proposing or making changes. Break work into verifiable steps; each step includes its own check.
 - Search for existing utilities and patterns before writing new code.
-- Write the minimum code that correctly solves the problem; avoid speculative features and unnecessary abstractions.
+- Write the minimum code that correctly solves the problem; avoid speculative features, generic or unnecessary abstractions, and unnecessary configurability.
 
 ## Style & Communication
-- Lead with the decision or answer; state the reason briefly after.
+- Lead with the decision or answer; state the reason briefly after, in one short clause.
+- Keep prose tight: prefer keywords over sentences, and cut anything obvious from context.
+- Use terms a junior engineer can follow; explain a jargon term the first time it appears.
 - The *what* belongs in code; the *why* belongs in responses, commit messages, or comments.
 - Comments: write only when the reasoning is not obvious from the code; one line is usually enough.
 - Delegate independent work to fresh-context subagents; batch parallel reads in one turn.
+- Between unrelated tasks, clear context. Accumulated failed attempts poison the next attempt.
 
 ## Required Commands
 - `make lint`
