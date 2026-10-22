@@ -11,6 +11,7 @@ Release policy:
 ## Unreleased
 
 ### Security
+- Raised certifi and virtualenv to fixed versions, unblocking Dependabot CI (packet `11-certifi-virtualenv-security-bump`).
 - Raised msgpack, pygments, urllib3 and virtualenv to fixed versions and removed the temporary `CVE-2026-4539` pip-audit ignore; `make sync` now upgrades pip-tools alongside pip (packet `10-dependency-security-bumps`).
 
 ### Changed
