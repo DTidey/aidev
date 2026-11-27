@@ -117,7 +117,7 @@ typing-extensions==4.15.0
     # via cyclonedx-python-lib
 urllib3==2.8.0
     # via requests
-virtualenv==21.14.10
+virtualenv==21.14.13
     # via pre-commit
 wheel==0.46.3
     # via pip-tools
